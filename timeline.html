@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<base target="_blank">
+<link rel="stylesheet" type="text/css">
+<style type="text/css"></style>
+<script></script>
+<style>
+
+#timebtn {
+    position: fixed; 
+    top: 150px; 
+    right: 35px; 
+    background-color: white;
+    border: none; 
+}
+
+
+#timeline {
+  position: fixed;
+  z-index: 1000;
+  bottom: 0;
+  width: 100%;
+  background-color: black;
+  border-top: 2px solid #ccc;
+  display: none; /* Hidden by default */
+}
+
+.timeline-container {
+  display: flex;
+  z-index: 1000;
+  justify-content: space-around;
+  padding: 10px;
+}
+
+.timeline-item {
+  padding: 5px;
+  z-index: inherit;
+  background-color: #0c4685;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer; 
+}
+
+.hidden {
+  display: none;
+}
+
+    </style>
+</head>
+<body>
+    <button id="timebtn">
+        <img src="clock.jpg" alt="clock icon" width="35" height="35">
+    </button>
+
+    <div id="timeline" class="hidden">
+      <div class="timeline-container">
+        <div class="timeline-item">1890</div>
+        <div class="timeline-item">1900</div>
+        <div class="timeline-item">1910</div>
+        <div class="timeline-item">1920</div>
+        <div class="timeline-item">1930</div>
+        <div class="timeline-item">1940</div>
+        <div class="timeline-item">1950</div>
+        <div class="timeline-item">1960</div>
+        <div class="timeline-item">2020</div>
+        <div class="timeline-item">1970</div>
+        <div class="timeline-item">1980</div>
+        <div class="timeline-item">1990</div>
+        <div class="timeline-item">2000</div>
+        <div class="timeline-item">2010</div>
+        <div class="timeline-item">2015</div>
+        <div class="timeline-item">2020</div>
+        <div class="timeline-item">present</div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('timebtn').addEventListener('click', function() {
+        const timeline = document.getElementById('timeline');
+        if (timeline.classList.contains('hidden')) {
+            timeline.classList.remove('hidden');
+            timeline.style.display = 'block';
+        } else {
+            timeline.classList.add('hidden');
+            timeline.style.display = 'none';
+        }
+    });
+    </script>
+</body>
+</html>
+
+
+

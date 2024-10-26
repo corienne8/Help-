@@ -1,0 +1,52 @@
+<!DOCTYPE html> 
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <base target="_blank">
+        <link rel="stylesheet" type="text/css" href="homestyle.css">
+        <style type="text/css"></style>
+        <script src="home.js"></script>
+    </head>
+    <body>
+        <header></header>
+
+        <!--Main Content-->
+        <main>
+            <div>
+                <button id="firstbtn" onclick="openPopup()">Fly Through UP</button>
+            </div>
+        </main>
+
+        <!--Overlay and pop-up-->
+        <div class="overlay" id="overlay"></div>
+        <div class="popup" id="popup">
+            <button class="close-btn" onclick="closePopup()">X</button>
+            <div class="popup-content">
+                <h2>Instructions</h2>
+                <p>Follow these steps:</p>
+                <img src="oldArts.jpg" alt="step image">
+                <p>Follow these instructions:</p>
+                <img src="oldArts.jpg" alt="step image 2">
+                <p>continue with the next step:</p>
+                <a href="index.html">
+                    <button id="startbtn">Start</button>
+                </a>
+            </div>
+        </div>
+
+        <!--JavaScript for opening and closing the pop-up-->
+        <script>
+            function openPopup() {
+                document.getElementById("popup").style.display = "block"; 
+                document.getElementById("overlay").style.display = "block";
+            }
+
+            function closePopup() {
+                document.getElementById("popup").style.display = "none";
+                document.getElementById("overlay").style.display = "none"; 
+            }
+        </script>
+
+    </body>
+</html>

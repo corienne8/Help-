@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>GMT_Processing</title>
+<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<base target="_blank">
+<link rel="stylesheet" type="text/css" href="Qgis2threejs.css">
+<link rel="function" type="js" href="Qgis2threejs.js"> 
+<style type="text/css">
+#popup, #layerpanel {
+  left: 36px;
+}
+
+#helpbtn {
+  position: fixed; 
+  right: 20px; 
+  top: 80px; 
+  width: 25px;
+  height: 25px;
+  border-radius: 50%; /* Circular shape */
+  cursor: pointer;
+  z-index: 1000;
+}
+
+#helpbtn img {
+  position: fixed; 
+  right: 20px; 
+  top: 78px; 
+  border-radius: 50%;
+}
+
+#header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #333;
+  color: white;
+  padding: 10px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+}
+
+#header h1 {
+  margin: 0;
+  font-size: 22px;
+}
+
+#search-bar {
+  margin-left: auto; 
+}
+
+#search-bar input {
+  padding: 5px;
+  font-size: 16px;
+}
+
+</style>
+<script src="./threejs/three.min.js"></script>
+<script src="./threejs/OrbitControls.js"></script>
+<script src="./threejs/ViewHelper.js"></script>
+<script src="./Qgis2threejs.js"></script>
+<script src="./threejs/loaders/GLTFLoader.js"></script>
+</head>
+<body>
+  <div id="header">
+    <h1>UNIVERSITY OF PRETORIA: HATFIELD CAMPUS</h1>
+    <div id="search-bar">
+      <input type="text" placeholder="Search...">
+    </div>
+  </div>
+
+  <!--helpbtn container-->
+  <button id="helpbtn">
+    <img src="help.jpg" height="35" width="35"> 
+  </button>
+
+<div id="view">
+  <div id="northarrow"></div>
+  <div id="navigation"></div>
+</div>
+
+<!-- header and footer -->
+<div id="footer"></div>
+
+<button id="timebtn">
+  <img src="clock.jpg" alt="clock icon" width="35" height="35">
+</button>
+
+<div id="timeline" class="hidden">
+<div class="timeline-container">
+  <div class="timeline-item" data-year="1890">1890</div>
+  <div class="timeline-item" data-year="1900">1900</div>
+  <div class="timeline-item" data-year="1910">1910</div>
+  <div class="timeline-item" data-year="1920">1920</div>
+  <div class="timeline-item" data-year="1930">1930</div>
+  <div class="timeline-item" data-year="1940">1940</div>
+  <div class="timeline-item" data-year="1950">1950</div>
+  <div class="timeline-item" data-year="1960">1960</div>
+  <div class="timeline-item" data-year="1970">1970</div>
+  <div class="timeline-item" data-year="1980">1980</div>
+  <div class="timeline-item" data-year="1990">1990</div>
+  <div class="timeline-item" data-year="2000">2000</div>
+  <div class="timeline-item" data-year="2010">2010</div>
+  <div class="timeline-item" data-year="2020">2020</div>
+  <div class="timeline-item" data-year="2024">present</div>
+  </div>
+</div>
+
+<!-- popup -->
+<div id="popup">
+  <div id="closebtn">&times;</div>
+  <div id="popupbar"></div>
+  <div id="popupbody">
+    <div id="popupcontent"></div>
+
+    <!-- query result -->
+    <div id="queryresult">
+      <table id="qr_coords_table">
+        <caption>Clicked coordinates <div id="zoomtopoint" class="action-zoom zoombtn"></div></caption>
+        <tr><td id="qr_coords"></td></tr>
+      </table>
+
+      <table id="qr_layername_table">
+        <caption>Layer <div id="zoomtolayer" class="action-zoom zoombtn"></div></caption>
+        <tr><td id="qr_layername"></td></tr>
+      </table>
+
+      <table id="qr_attrs_table">
+        <caption>Attributes</caption>
+      </table>
+
+      <!-- camera actions and measure tool -->
+      <div id="orbitbtn" class="action-btn action-orbit">Orbit</div>
+      <div id="measurebtn" class="action-btn">Measure distance</div>
+    </div>
+
+    <!-- page info -->
+    <div id="pageinfo">
+      <h1>Usage</h1>
+      <table id="usage">
+        <tr><td colspan="2" class="star">Mouse</td></tr>
+        <tr><td>Left button + Move</td><td>Orbit</td></tr>
+        <tr><td>Mouse Wheel</td><td>Zoom</td></tr>
+        <tr><td>Right button + Move</td><td>Pan</td></tr>
+
+        <tr><td colspan="2" class="star">Keys</td></tr>
+        <tr><td>Arrow keys</td><td>Move Horizontally</td></tr>
+        <tr><td>Shift + Arrow keys</td><td>Orbit</td></tr>
+        <tr><td>Ctrl + Arrow keys</td><td>Rotate</td></tr>
+        <tr><td>Shift + Ctrl + Up / Down</td><td>Zoom In / Out</td></tr>
+        <tr><td>L</td><td>Toggle Label Visibility</td></tr>
+        <tr><td>R</td><td>Start / Stop Orbit Animation</td></tr>
+        <tr><td>W</td><td>Wireframe Mode</td></tr>
+        <tr><td>Shift + R</td><td>Reset Camera Position</td></tr>
+        <tr><td>Shift + S</td><td>Save Image</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- progress bar -->
+<div id="progress"><div id="progressbar"></div></div>
+
+<!-- menu -->
+<div id="toolbtns">
+  <div id="layerbtn"></div>
+  <div id="animbtn" class="hidden"></div>
+  <div id="infobtn"></div>
+</div>
+
+
+
+<!-- layer panel -->
+<div id="layerpanel">
+  <div id="layerlist"></div>
+</div>
+
+<!-- animation -->
+<div id="narrativebox" class="ef1">
+  <div id="narbody">
+
+  </div>
+  <div id="nextbtn"></div>
+</div>
+
+<script>
+Q3D.Config.allVisible = true;
+Q3D.Config.viewpoint = {lookAt:{x:-77168.17521910509,y:-2849818.401699711,z:1399.07958984375},pos:{x:-77168.17521910509,y:-2850686.7944665775,z:2267.4723567101355}};
+Q3D.Config.localMode = true;
+
+var container = document.getElementById("view"),
+    app = Q3D.application,
+    gui = Q3D.gui;
+
+app.init(container);       // initialize viewer
+
+// load the scene
+app.loadSceneFile("./data/index/scene.js", function (scene) {
+  // scene file has been loaded
+  app.start();
+}, function (scene) {
+  // all relevant files have been loaded
+
+});
+
+document.getElementById('timebtn').addEventListener('click', function() {
+        const timeline = document.getElementById('timeline');
+        if (timeline.classList.contains('hidden')) {
+            timeline.classList.remove('hidden');
+            timeline.style.display = 'block';
+        } else {
+            timeline.classList.add('hidden');
+            timeline.style.display = 'none';
+        }
+    });
+</script>
+</body>
+</html>

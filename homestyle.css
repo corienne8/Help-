@@ -1,0 +1,101 @@
+html {
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+}
+
+body {
+    background-image: url('Homepage.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+#firstbtn {
+    font-size: 50px;
+    font-family: sans-serif;
+    background-color: black;
+    color: white;
+    border-style: outset;
+    border-color: white;
+    border-radius: 12px;
+    padding: 10px 20px; 
+    cursor: pointer;
+    margin: auto;
+    text-align: center;
+}
+
+header {
+    poisition: relative;
+    height: 260px;
+}
+
+footer {
+    height: 260px; 
+}
+
+/*The pop-up window (initially hidden)*/ 
+.popup {
+    display: none;
+    position: fixed; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width:300px;
+    padding: 20px; 
+    background-color: white;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 10px; 
+    z-index: 1000;  
+}
+
+/* Overlay behind the pop-up*/ 
+.overlay {
+    display: none; 
+    position: fixed;
+    top: 0;
+    left: 0; 
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5)
+    z-index: 999; 
+}
+
+/*close button for the pop-up*/ 
+.close-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: red;
+    color:white ;
+    border: none;
+    border-radius: 50%;
+    width:25px; 
+    height:25px;
+    font-size: 10px; 
+    cursor: pointer;
+}
+
+/*content inside the popup*/ 
+.popup-content {
+    text-align: center;
+}
+
+.popup-content img {
+    width: 100px; 
+    height: 100px; 
+}
+
+#startbtn {
+    color: white;
+    background-color: black;
+    font-size: 30px;
+    font-family: sans-serif;
+    border-style: outset;
+    border-color: white;
+    border-radius: 12px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin: auto;
+    text-align: center;
+}
